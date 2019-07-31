@@ -1,3 +1,10 @@
+#the build dir
+bin
+cmake-build-debug
+
+#the idea setting dir
+.idea/
+
 # Prerequisites
 *.d
 
