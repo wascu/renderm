@@ -23,7 +23,7 @@ public:
 
 private:
     std::vector<float> m_vertex_arr;
-//    Shader m_triShader;
+    Shader m_triShader;
 
     int m_shaderProgram;
 };
