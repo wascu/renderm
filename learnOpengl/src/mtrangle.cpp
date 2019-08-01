@@ -34,7 +34,8 @@ void MTrangle::render(GLFWwindow *w) {
 }
 
 void MTrangle::setVertexArray(const std::vector<float> &vtxArr) {
-    free(m_pvertex_temp_buffer);
+    if(m_pvertex_temp_buffer)
+        free(m_pvertex_temp_buffer);
     m_pvertex_temp_buffer = nullptr;
     if(!vtxArr.empty()){
         int n = vtxArr.size();
@@ -62,14 +63,12 @@ void MTrangle::prepare() {
     glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,0,NULL);
     glEnableVertexAttribArray(0);
 
-    //***************************************************************************
-    //End of prepare func,then free the memory of temp buffer
-    //***************************************************************************
-    free(m_pvertex_temp_buffer);
+    glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
 }
 
 MTrangle::~MTrangle() {
     glDeleteVertexArrays(1,&vao);
     glDeleteBuffers(1,&vbo);
-    free(m_pvertex_temp_buffer);
+    if(m_pvertex_temp_buffer)
+        free(m_pvertex_temp_buffer);
 }

@@ -45,6 +45,8 @@ int main() {
     mt.setVertexArray(vec_vertexs);
     mt.prepare();
 
+//    glfwSetInputMode(window,GLFW_STICKY_KEYS,GL_FALSE);
+
     while(!glfwWindowShouldClose(window))
     {
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
