@@ -10,3 +10,9 @@ void RenderFunctions::processInput(GLFWwindow *window){
     if(glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
 }
+
+
+void RenderFunctions::showTrangle(GLFWwindow *window){
+    if(glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
+        glfwSetWindowShouldClose(window, true);
+}

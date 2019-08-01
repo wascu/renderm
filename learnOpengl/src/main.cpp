@@ -6,12 +6,11 @@
 #include "glwSetting.h"
 #include "glfRenderCallBack.h"
 #include "renderFunctions.h"
+#include "mtrangle.h"
 
 //using namespace glm;
 
 USING_NAMESPACE_MGGL
-
-
 
 int main() {
 
@@ -37,18 +36,21 @@ int main() {
     RenderCallbackManager rcm;
     rcm.add(RenderFunctions::processInput);
 
+    MTrangle mt;
+    mt.prepare();
+
+
+
+
     while(!glfwWindowShouldClose(window))
     {
-        rcm.run(window);
-
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
-
-        glfwSwapBuffers(window);
+        glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+        rcm.run(window);
+        mt.render(window);
         glfwPollEvents();
+        glfwSwapBuffers(window);
     }
-
-
     std::cout << "Hello, World!" << std::endl;
     glfwTerminate();
 

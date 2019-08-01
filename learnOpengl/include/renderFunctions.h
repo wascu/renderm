@@ -12,6 +12,8 @@ NAMESPACE_GL_BEGIN
 class RenderFunctions {
 public:
     static void processInput(GLFWwindow *window);
+
+    static void showTrangle(GLFWwindow* w);
 };
 NAMESPACE_END
 
