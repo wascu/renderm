@@ -1,6 +1,5 @@
 #add relate lib
-!/learnOpengl/lib/*.lib
-
+#!/learnOpengl/lib/*.lib
 
 #the build dir
 bin
@@ -41,3 +40,5 @@ cmake-build-debug
 *.exe
 *.out
 *.app
+#add relate lib
+!/learnOpengl/lib/*.lib
