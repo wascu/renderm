@@ -32,6 +32,7 @@ set(LIBS ${GLFW3_LIBRARY} X11 Xrandr Xinerama Xi Xxf86vm Xcursor GL dl pthread $
 #add_library(SRC_CPP "src/renderFunctions.cpp" )
 #set(LIBS ${LIBS} SRC_CPP)
 
+
 AUX_SOURCE_DIRECTORY(src DIR_SRCS)
 
 add_library(native-lib ${DIR_SRCS})
@@ -41,6 +42,8 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin)
 
 add_executable(learnOpengl ${DIR_SRCS} )
 target_link_libraries(learnOpengl ${LIBS})
+
+add_subdirectory(src)
 
 
 #OPTION(USE_DEBUG
