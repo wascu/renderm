@@ -36,11 +36,14 @@ int main() {
     RenderCallbackManager rcm;
     rcm.add(RenderFunctions::processInput);
 
+
+
+    std::vector<float> vec_vertexs ({-0.5f, -0.5f, 0.0f,
+                                     0.5f, -0.5f, 0.0f,
+                                     0.0f,  0.5f, 0.0f});
     MTrangle mt;
+    mt.setVertexArray(vec_vertexs);
     mt.prepare();
-
-
-
 
     while(!glfwWindowShouldClose(window))
     {

@@ -5,6 +5,9 @@
 #include <glad/glad.h>
 #include "mtrangle.h"
 
+#include <string.h>
+
+//#include <GL/glew.h>
 
 
 const char *vertexShaderSource = "#version 330 core\n"
@@ -31,29 +34,42 @@ void MTrangle::render(GLFWwindow *w) {
 }
 
 void MTrangle::setVertexArray(const std::vector<float> &vtxArr) {
-    m_vertex_arr.clear();
-    m_vertex_arr.assign(vtxArr.begin(),vtxArr.end());
+    free(m_pvertex_temp_buffer);
+    m_pvertex_temp_buffer = nullptr;
+    if(!vtxArr.empty()){
+        int n = vtxArr.size();
+        m_pvertex_temp_buffer = new float[n];
+        n_vertex_temp_buffer_length =n* sizeof(float);
+        memcpy(m_pvertex_temp_buffer,&vtxArr[0],n_vertex_temp_buffer_length);
+    }
 }
 
 void MTrangle::prepare() {
-    float vertices[] = {
-            -0.5f, -0.5f, 0.0f,
-            0.5f, -0.5f, 0.0f,
-            0.0f,  0.5f, 0.0f
-    };
+    if(!m_pvertex_temp_buffer){
+        return;
+    }
 
-    //定义顶点缓冲对象
-    unsigned int vbo;
-    glGenBuffers(1,&vbo);
-
-    glBindBuffer(GL_ARRAY_BUFFER,vbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices),vertices,GL_STATIC_DRAW);
     //定义顶点数组对象 VAO
-    unsigned int vao;
     glGenVertexArrays(1,&vao);
     glBindVertexArray(vao);
-    glEnableVertexAttribArray(0);
+    //定义顶点缓冲对象
+    glGenBuffers(1,&vbo);
+    glBindBuffer(GL_ARRAY_BUFFER,vbo);
+    glBufferData(GL_ARRAY_BUFFER, n_vertex_temp_buffer_length,m_pvertex_temp_buffer,GL_STATIC_DRAW);
+//    glEnableVertexAttribArray(0);
 //    glBindBuffer(GL_ARRAY_BUFFER,vbo);
+    // 3. 设置顶点属性指针
     glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,0,NULL);
     glEnableVertexAttribArray(0);
+
+    //***************************************************************************
+    //End of prepare func,then free the memory of temp buffer
+    //***************************************************************************
+    free(m_pvertex_temp_buffer);
+}
+
+MTrangle::~MTrangle() {
+    glDeleteVertexArrays(1,&vao);
+    glDeleteBuffers(1,&vbo);
+    free(m_pvertex_temp_buffer);
 }

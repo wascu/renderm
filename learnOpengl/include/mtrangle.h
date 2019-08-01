@@ -20,12 +20,16 @@ public:
     void render(GLFWwindow* w);
     void setVertexArray(const std::vector<float>& vtxArr);
     void prepare();
+    ~MTrangle();
 
 private:
     std::vector<float> m_vertex_arr;
     Shader m_triShader;
+    //定义顶点缓冲对象,顶点数组对象
+    unsigned int vao,vbo;
 
-    int m_shaderProgram;
+    float* m_pvertex_temp_buffer= nullptr;
+    size_t n_vertex_temp_buffer_length =0;
 };
 
 NAMESPACE_END
