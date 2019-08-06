@@ -52,10 +52,18 @@ int main() {
                                       1, 2, 3  // 第二个三角形
                                  });
 
+    std::vector<float> vertices_color ({
+                                               // 位置              // 颜色
+                                               0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,   // 右下
+                                               -0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,   // 左下
+                                               0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f    // 顶部
+                                 });
+
 
     MTrangle mt;
 //    mt.setVertexArray(vec_vertexs);
-    mt.setVertexArray(vertices,&indices);
+    mt.setVertexArrayWithMoreAttr(vertices_color);
+//    mt.setVertexArray(vertices,&indices);
     mt.prepare();
     glm::vec4 vcolor(0.9f, 0.1f, 0.2f, 1.0f);
 
@@ -72,7 +80,7 @@ int main() {
         glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
         rcm.run(window);
         mt.render(window);
-        mt.setVtxColor(vcolor);
+//        mt.setVtxColor(vcolor);
         glfwPollEvents();
         glfwSwapBuffers(window);
     }

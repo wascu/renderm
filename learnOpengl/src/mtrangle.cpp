@@ -45,6 +45,9 @@ void MTrangle::prepare() {
     if(!m_pvertex_temp_buffer){
         return;
     }
+    if(b_vertexArr_with_more_attr){
+        m_triShader = Shader("triangle_more_attr.vs","triangle_more_attr.fs");
+    }
 
     //定义顶点数组对象 VAO
     glGenVertexArrays(1,&vao);
@@ -66,8 +69,18 @@ void MTrangle::prepare() {
 //    glEnableVertexAttribArray(0);
 //    glBindBuffer(GL_ARRAY_BUFFER,vbo);
     // 3. 设置顶点属性指针
-    glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,0,NULL);
-    glEnableVertexAttribArray(0);
+    if(b_vertexArr_with_more_attr){
+        // 位置属性
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+        glEnableVertexAttribArray(0);
+// 颜色属性
+        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3* sizeof(float)));
+        glEnableVertexAttribArray(1);
+    } else{
+        glVertexAttribPointer(0,3,GL_FLOAT,GL_FALSE,0,NULL);
+        glEnableVertexAttribArray(0);
+    }
+
 
     glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
 }
@@ -84,4 +97,10 @@ MTrangle::~MTrangle() {
 
 void MTrangle::setVtxColor(glm::vec4 &vecColor) {
     m_triShader.setVec4("vtxColor",vecColor);
+}
+
+void MTrangle::setVertexArrayWithMoreAttr(const std::vector<float> &vtxArr, std::vector<int> *pIndexArr) {
+    n_vertex_temp_buffer_length = copyVector(vtxArr,&m_pvertex_temp_buffer);
+    n_index_temp_buffer_length = copyVector(pIndexArr,&m_pindex_temp_buffer);
+    b_vertexArr_with_more_attr = true;
 }

@@ -44,6 +44,7 @@ public:
     MTrangle();
     void render(GLFWwindow* w);
     void setVertexArray(const std::vector<float> &vtxArr,std::vector<int>* pIndexArr= nullptr) ;
+    void setVertexArrayWithMoreAttr(const std::vector<float> &vtxArr,std::vector<int>* pIndexArr= nullptr) ;
     void prepare();
     ~MTrangle();
 
@@ -58,6 +59,8 @@ private:
     int* m_pindex_temp_buffer= nullptr;
     size_t n_vertex_temp_buffer_length =0;
     size_t n_index_temp_buffer_length =0;
+
+    bool b_vertexArr_with_more_attr=false;
 };
 
 NAMESPACE_END
