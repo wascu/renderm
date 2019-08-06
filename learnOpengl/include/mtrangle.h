@@ -29,7 +29,9 @@ private:
     unsigned int vao,vbo;
 
     float* m_pvertex_temp_buffer= nullptr;
+    float* m_pindex_temp_buffer= nullptr;
     size_t n_vertex_temp_buffer_length =0;
+    size_t n_index_temp_buffer_length =0;
 };
 
 NAMESPACE_END

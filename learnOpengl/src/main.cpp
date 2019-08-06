@@ -34,8 +34,7 @@ int main() {
     }
 
     RenderCallbackManager rcm;
-    rcm.add(RenderFunctions::processInput);
-
+//    rcm.add(RenderFunctions::processInput);
 
 
     std::vector<float> vec_vertexs ({-0.5f, -0.5f, 0.0f,
@@ -46,6 +45,11 @@ int main() {
     mt.prepare();
 
 //    glfwSetInputMode(window,GLFW_STICKY_KEYS,GL_FALSE);
+    glfwSetKeyCallback(window,RenderFunctions::key_callback);
+    //鼠标指针移动事件
+//    glfwSetCursorPosCallback(window, cursor_pos_callback);
+//    鼠标点击事件
+//    glfwSetMouseButtonCallback(window, mouse_button_callback);
 
     while(!glfwWindowShouldClose(window))
     {
