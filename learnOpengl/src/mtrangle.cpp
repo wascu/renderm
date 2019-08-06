@@ -29,33 +29,15 @@ MTrangle::MTrangle():m_triShader("triangle.vs","triangle.fs") {}
 
 void MTrangle::render(GLFWwindow *w) {
     m_triShader.use();
-
-    glDrawArrays(GL_TRIANGLES,0,3);
+    if(m_pindex_temp_buffer){
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    }else
+        glDrawArrays(GL_TRIANGLES,0,3);
 }
 
-void MTrangle::setVertexArray(const std::vector<float> &vtxArr,std::vector<float>* pIndexArr) {
-//    if(m_pvertex_temp_buffer)
-//        free(m_pvertex_temp_buffer);
-//    m_pvertex_temp_buffer = nullptr;
-//    if(!vtxArr.empty()){
-//        int n = vtxArr.size();
-//        m_pvertex_temp_buffer = new float[n];
-//        n_vertex_temp_buffer_length =n* sizeof(float);
-//        memcpy(m_pvertex_temp_buffer,&vtxArr[0],n_vertex_temp_buffer_length);
-//    }
-
-//    if(m_pindex_temp_buffer)
-//        free(m_pindex_temp_buffer);
-//    m_pindex_temp_buffer = nullptr;
-//    if(pIndexArr){
-//        int n = pIndexArr->size();
-//        m_pindex_temp_buffer = new float[n];
-//        n_index_temp_buffer_length = n*sizeof(float);
-//        memcpy(m_pindex_temp_buffer,pIndexArr,n_index_temp_buffer_length);
-//    }
-
+void MTrangle::setVertexArray(const std::vector<float> &vtxArr,std::vector<int>* pIndexArr) {
     n_vertex_temp_buffer_length = copyVector(vtxArr,&m_pvertex_temp_buffer);
-
+    n_index_temp_buffer_length = copyVector(pIndexArr,&m_pindex_temp_buffer);
 }
 
 void MTrangle::prepare() {
@@ -71,10 +53,13 @@ void MTrangle::prepare() {
     glBindBuffer(GL_ARRAY_BUFFER,vbo);
     glBufferData(GL_ARRAY_BUFFER, n_vertex_temp_buffer_length,m_pvertex_temp_buffer,GL_STATIC_DRAW);
     //定义索引数组对象 IBO
-    glGenBuffers(1,&ibo);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,ibo);
-//    glBufferData(GL_ELEMENT_ARRAY_BUFFER,size_t)
+    if(n_index_temp_buffer_length>0){
+        glGenBuffers(1,&ibo);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,ibo);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER,n_index_temp_buffer_length,m_pindex_temp_buffer,GL_STATIC_DRAW);
 
+        glDrawElements(GL_TRIANGLES,6,GL_UNSIGNED_INT,0);
+    }
 
 
 //    glEnableVertexAttribArray(0);

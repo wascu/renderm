@@ -40,8 +40,22 @@ int main() {
     std::vector<float> vec_vertexs ({-0.5f, -0.5f, 0.0f,
                                      0.5f, -0.5f, 0.0f,
                                      0.0f,  0.5f, 0.0f});
+
+    std::vector<float> vertices ({0.5f, 0.5f, 0.0f,   // 右上角
+                                  0.5f, -0.5f, 0.0f,  // 右下角
+                                  -0.5f, -0.5f, 0.0f, // 左下角
+                                  -0.5f, 0.5f, 0.0f   // 左上角
+                                   });
+
+    std::vector<int> indices ({       // 注意索引从0开始!
+                                      0, 1, 3, // 第一个三角形
+                                      1, 2, 3  // 第二个三角形
+                                 });
+
+
     MTrangle mt;
-    mt.setVertexArray(vec_vertexs);
+//    mt.setVertexArray(vec_vertexs);
+    mt.setVertexArray(vertices,&indices);
     mt.prepare();
 
 //    glfwSetInputMode(window,GLFW_STICKY_KEYS,GL_FALSE);

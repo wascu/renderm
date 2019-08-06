@@ -17,11 +17,11 @@ NAMESPACE_GL_BEGIN
 //some templates
     template <class T>
     int copyVector(const std::vector<T>* pvec,T** ppDst){
-        if(!pvec)
-            return 0;
         if(*ppDst)
             free(*ppDst);
         *ppDst = nullptr;
+        if(!pvec)
+            return 0;
         int l=0;
         if(!pvec->empty()){
             int n = pvec->size();
@@ -43,18 +43,17 @@ class MTrangle {
 public:
     MTrangle();
     void render(GLFWwindow* w);
-    void setVertexArray(const std::vector<float> &vtxArr,std::vector<float>* pIndexArr= nullptr) ;
+    void setVertexArray(const std::vector<float> &vtxArr,std::vector<int>* pIndexArr= nullptr) ;
     void prepare();
     ~MTrangle();
 
 private:
-    std::vector<float> m_vertex_arr;
     Shader m_triShader;
     //定义顶点缓冲对象,顶点数组对象
     unsigned int vao,vbo,ibo;
 
     float* m_pvertex_temp_buffer= nullptr;
-    float* m_pindex_temp_buffer= nullptr;
+    int* m_pindex_temp_buffer= nullptr;
     size_t n_vertex_temp_buffer_length =0;
     size_t n_index_temp_buffer_length =0;
 };
