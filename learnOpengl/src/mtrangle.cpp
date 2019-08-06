@@ -23,6 +23,7 @@ const char *fragmentShaderSource = "#version 330 core\n"
                                    "   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
                                    "}\n\0";
 
+
 USING_NAMESPACE_MGGL
 
 MTrangle::MTrangle():m_triShader("triangle.vs","triangle.fs") {}
@@ -71,6 +72,7 @@ void MTrangle::prepare() {
     glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
 }
 
+
 MTrangle::~MTrangle() {
     glDeleteVertexArrays(1,&vao);
     glDeleteBuffers(1,&vbo);
@@ -78,4 +80,8 @@ MTrangle::~MTrangle() {
         free(m_pvertex_temp_buffer);
     if(m_pindex_temp_buffer)
         free(m_pindex_temp_buffer);
+}
+
+void MTrangle::setVtxColor(glm::vec4 &vecColor) {
+    m_triShader.setVec4("vtxColor",vecColor);
 }

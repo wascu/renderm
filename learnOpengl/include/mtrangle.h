@@ -47,6 +47,8 @@ public:
     void prepare();
     ~MTrangle();
 
+    void setVtxColor(glm::vec4& vecColor) ;
+
 private:
     Shader m_triShader;
     //定义顶点缓冲对象,顶点数组对象

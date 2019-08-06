@@ -57,6 +57,7 @@ int main() {
 //    mt.setVertexArray(vec_vertexs);
     mt.setVertexArray(vertices,&indices);
     mt.prepare();
+    glm::vec4 vcolor(0.9f, 0.1f, 0.2f, 1.0f);
 
 //    glfwSetInputMode(window,GLFW_STICKY_KEYS,GL_FALSE);
     glfwSetKeyCallback(window,RenderFunctions::key_callback);
@@ -71,6 +72,7 @@ int main() {
         glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
         rcm.run(window);
         mt.render(window);
+        mt.setVtxColor(vcolor);
         glfwPollEvents();
         glfwSwapBuffers(window);
     }
