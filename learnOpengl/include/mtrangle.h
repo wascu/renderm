@@ -9,16 +9,41 @@
 
 #include <GLFW/glfw3.h>
 #include <vector>
+#include <string.h>  //for func memcpy
 
 #include "shader.h"
 
 NAMESPACE_GL_BEGIN
+//some templates
+    template <class T>
+    int copyVector(const std::vector<T>* pvec,T** ppDst){
+        if(!pvec)
+            return 0;
+        if(*ppDst)
+            free(*ppDst);
+        *ppDst = nullptr;
+        int l=0;
+        if(!pvec->empty()){
+            int n = pvec->size();
+            *ppDst = new T[n];
+            int ns = sizeof(T);
+            l =n* ns;
+            memcpy(*ppDst,&(*pvec)[0],l);
+        }
+        return l;
+    }
+
+    template <class T>
+    int copyVector(const std::vector<T>& vec,T** ppDst){
+        return copyVector(&vec,ppDst);
+    }
+
 
 class MTrangle {
 public:
     MTrangle();
     void render(GLFWwindow* w);
-    void setVertexArray(const std::vector<float>& vtxArr);
+    void setVertexArray(const std::vector<float> &vtxArr,std::vector<float>* pIndexArr= nullptr) ;
     void prepare();
     ~MTrangle();
 
@@ -26,7 +51,7 @@ private:
     std::vector<float> m_vertex_arr;
     Shader m_triShader;
     //定义顶点缓冲对象,顶点数组对象
-    unsigned int vao,vbo;
+    unsigned int vao,vbo,ibo;
 
     float* m_pvertex_temp_buffer= nullptr;
     float* m_pindex_temp_buffer= nullptr;

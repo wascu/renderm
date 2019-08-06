@@ -5,7 +5,7 @@
 #include <glad/glad.h>
 #include "mtrangle.h"
 
-#include <string.h>
+
 
 //#include <GL/glew.h>
 
@@ -33,16 +33,29 @@ void MTrangle::render(GLFWwindow *w) {
     glDrawArrays(GL_TRIANGLES,0,3);
 }
 
-void MTrangle::setVertexArray(const std::vector<float> &vtxArr) {
-    if(m_pvertex_temp_buffer)
-        free(m_pvertex_temp_buffer);
-    m_pvertex_temp_buffer = nullptr;
-    if(!vtxArr.empty()){
-        int n = vtxArr.size();
-        m_pvertex_temp_buffer = new float[n];
-        n_vertex_temp_buffer_length =n* sizeof(float);
-        memcpy(m_pvertex_temp_buffer,&vtxArr[0],n_vertex_temp_buffer_length);
-    }
+void MTrangle::setVertexArray(const std::vector<float> &vtxArr,std::vector<float>* pIndexArr) {
+//    if(m_pvertex_temp_buffer)
+//        free(m_pvertex_temp_buffer);
+//    m_pvertex_temp_buffer = nullptr;
+//    if(!vtxArr.empty()){
+//        int n = vtxArr.size();
+//        m_pvertex_temp_buffer = new float[n];
+//        n_vertex_temp_buffer_length =n* sizeof(float);
+//        memcpy(m_pvertex_temp_buffer,&vtxArr[0],n_vertex_temp_buffer_length);
+//    }
+
+//    if(m_pindex_temp_buffer)
+//        free(m_pindex_temp_buffer);
+//    m_pindex_temp_buffer = nullptr;
+//    if(pIndexArr){
+//        int n = pIndexArr->size();
+//        m_pindex_temp_buffer = new float[n];
+//        n_index_temp_buffer_length = n*sizeof(float);
+//        memcpy(m_pindex_temp_buffer,pIndexArr,n_index_temp_buffer_length);
+//    }
+
+    n_vertex_temp_buffer_length = copyVector(vtxArr,&m_pvertex_temp_buffer);
+
 }
 
 void MTrangle::prepare() {
@@ -57,6 +70,13 @@ void MTrangle::prepare() {
     glGenBuffers(1,&vbo);
     glBindBuffer(GL_ARRAY_BUFFER,vbo);
     glBufferData(GL_ARRAY_BUFFER, n_vertex_temp_buffer_length,m_pvertex_temp_buffer,GL_STATIC_DRAW);
+    //定义索引数组对象 IBO
+    glGenBuffers(1,&ibo);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,ibo);
+//    glBufferData(GL_ELEMENT_ARRAY_BUFFER,size_t)
+
+
+
 //    glEnableVertexAttribArray(0);
 //    glBindBuffer(GL_ARRAY_BUFFER,vbo);
     // 3. 设置顶点属性指针
@@ -71,4 +91,6 @@ MTrangle::~MTrangle() {
     glDeleteBuffers(1,&vbo);
     if(m_pvertex_temp_buffer)
         free(m_pvertex_temp_buffer);
+    if(m_pindex_temp_buffer)
+        free(m_pindex_temp_buffer);
 }
