@@ -54,6 +54,9 @@ int main() {
                                       0, 1, 3, // 第一个三角形
                                       1, 2, 3  // 第二个三角形
                                  });
+    std::vector<int> indices_one_triangle ({       // 注意索引从0开始!
+                                      0, 1, 3 // 第一个三角形
+                              });
 
     std::vector<float> vertices_color ({
                                                // 位置              // 颜色
@@ -62,11 +65,21 @@ int main() {
                                                0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f    // 顶部
                                  });
 
+    std::vector<float> triangle_vertices_color_texturecoords ({
+                                               // 位置              // 颜色             //纹理坐标
+                                               0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,   1.0f,0.0f, // 右下
+                                               -0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,  0.0f,0.0f, // 左下
+                                               0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f,   0.5f,1.0f// 顶部
+                                       });
+    std::vector<int> vec_vrt_attri_pointers={3,3,2};
 
     MTrangle mt;
 //    mt.setVertexArray(vec_vertexs);
-    mt.setVertexArrayWithMoreAttr(vertices_color);
+//    mt.setVertexArrayWithMoreAttr(vertices_color);
+    mt.setVertexArrayWithMoreAttr(triangle_vertices_color_texturecoords,&vec_vrt_attri_pointers,&indices_one_triangle);
+    mt.setTexturePic("res/textures/container.jpg");
 //    mt.setVertexArray(vertices,&indices);
+//    mt.setVertexArray(vertices,&indices_one_triangle);
     mt.prepare();
     glm::vec4 vcolor(0.9f, 0.1f, 0.2f, 1.0f);
 

@@ -37,11 +37,20 @@ AUX_SOURCE_DIRECTORY(. DIR_SRCS)
 #add_library(native-lib ${DIR_SRCS})
 #set(LIBS ${LIBS} native-lib
 
+##生成可执行文件
+#add_executable(learnOpengl ${DIR_SRCS} )
+##链接相关的库文件
+#target_link_libraries(learnOpengl ${LIBS})
+
 #生成可执行文件
-add_executable(learnOpengl ${DIR_SRCS} )
+add_executable(learnOpengl glad.c glUtilFunction.cpp main.cpp mtrangle.cpp renderFunctions.cpp stb_image.cpp )
 #链接相关的库文件
 target_link_libraries(learnOpengl ${LIBS})
 
+#生成可执行文件
+add_executable(ogltest glad.c glUtilFunction.cpp gltest6_1.cpp mtrangle.cpp renderFunctions.cpp stb_image.cpp)
+#链接相关的库文件
+target_link_libraries(ogltest ${LIBS})
 
 #***********************************************************************************
 #set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/bin")
@@ -61,3 +70,11 @@ foreach(SHADER ${SHADERS})
 #    message(STATUS "current file is: ${SHADER}")
     file(COPY ${SHADER} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 endforeach(SHADER)
+
+file(GLOB REStexture
+        "../res"
+        )
+
+foreach(RES ${REStexture})
+    file(COPY ${RES} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+endforeach(RES)

@@ -44,7 +44,8 @@ public:
     MTrangle();
     void render(GLFWwindow* w);
     void setVertexArray(const std::vector<float> &vtxArr,std::vector<int>* pIndexArr= nullptr) ;
-    void setVertexArrayWithMoreAttr(const std::vector<float> &vtxArr,std::vector<int>* pIndexArr= nullptr) ;
+    void setVertexArrayWithMoreAttr(const std::vector<float> &vtxArr,std::vector<int>* pVtxAttriPointArray = nullptr ,std::vector<int>* pIndexArr= nullptr) ;
+    void setTexturePic(char* filePath);
     void prepare();
     ~MTrangle();
 
@@ -56,9 +57,14 @@ private:
     unsigned int vao,vbo,ibo;
 
     float* m_pvertex_temp_buffer= nullptr;
+    //顶点属性指针(指针默认指向一个float类型的数组)的int数组
+    int* m_pvertex_atrri_pointer_array= nullptr;
     int* m_pindex_temp_buffer= nullptr;
     size_t n_vertex_temp_buffer_length =0;
+    size_t n_vertex_atrri_pointer_array = 0;
     size_t n_index_temp_buffer_length =0;
+
+    unsigned int m_textureId = 0;
 
     bool b_vertexArr_with_more_attr=false;
 };
