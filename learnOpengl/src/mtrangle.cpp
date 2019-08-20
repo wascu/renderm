@@ -30,6 +30,7 @@ MTrangle::MTrangle():m_triShader("triangle.vs","triangle.fs") {}
 
 void MTrangle::render(GLFWwindow *w) {
     m_triShader.use();
+    glBindVertexArray(vao);
     if(m_pindex_temp_buffer){
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     }else
@@ -51,9 +52,11 @@ void MTrangle::prepare() {
 
     //定义顶点数组对象 VAO
     glGenVertexArrays(1,&vao);
-    glBindVertexArray(vao);
     //定义顶点缓冲对象
     glGenBuffers(1,&vbo);
+
+    glBindVertexArray(vao);
+
     glBindBuffer(GL_ARRAY_BUFFER,vbo);
     glBufferData(GL_ARRAY_BUFFER, n_vertex_temp_buffer_length,m_pvertex_temp_buffer,GL_STATIC_DRAW);
     //定义索引数组对象 IBO
@@ -89,6 +92,9 @@ void MTrangle::prepare() {
 MTrangle::~MTrangle() {
     glDeleteVertexArrays(1,&vao);
     glDeleteBuffers(1,&vbo);
+    if(n_index_temp_buffer_length>0){
+        glDeleteBuffers(1,&ibo);
+    }
     if(m_pvertex_temp_buffer)
         free(m_pvertex_temp_buffer);
     if(m_pindex_temp_buffer)
