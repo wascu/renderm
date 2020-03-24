@@ -2,6 +2,7 @@
 #!/learnOpengl/lib/*.lib
 
 #the build dir
+build
 bin
 cmake-build-debug
 
