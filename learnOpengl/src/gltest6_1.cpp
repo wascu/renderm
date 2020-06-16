@@ -15,7 +15,15 @@
 USING_NAMESPACE_MGGL
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-void processInput(GLFWwindow *window);
+void processInput(GLFWwindow *window); //this can be instead by key_callback
+void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods) {
+    //adjust the pos of left_camera,camera by manual
+    if (mods == GLFW_MOD_CONTROL) {
+        if (action == GLFW_REPEAT || action == GLFW_PRESS) {
+
+        }
+    }
+}
 
 // settings
 const unsigned int SCR_WIDTH = 800;
