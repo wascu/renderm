@@ -52,6 +52,11 @@ add_executable(ogltest glad.c glUtilFunction.cpp gltest6_1.cpp mtrangle.cpp rend
 #链接相关的库文件
 target_link_libraries(ogltest ${LIBS})
 
+#生成可执行文件
+add_executable(frameBuffer_gltest glad.c glUtilFunction.cpp framebuffers.cpp mtrangle.cpp renderFunctions.cpp stb_image.cpp)
+#链接相关的库文件
+target_link_libraries(frameBuffer_gltest ${LIBS})
+
 #***********************************************************************************
 #set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/bin")
 
